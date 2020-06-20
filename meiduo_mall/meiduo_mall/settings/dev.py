@@ -48,6 +48,8 @@ INSTALLED_APPS = [
     'users',
     # 添加 django-cors-headers 使其可以进行 cors 跨域
     'corsheaders',
+    # 注册apps下的verifications，用于第三方模块使用
+    'verifications',
 ]
 
 MIDDLEWARE = [
