@@ -191,3 +191,7 @@ LOGGING = {
         },
     }
 }
+
+
+# 指定本项目使用我们自定义的模型类:
+AUTH_USER_MODEL = 'users.User'
