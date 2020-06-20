@@ -29,8 +29,11 @@ SECRET_KEY = 'zbn8t(-#eit!hp%o%)3%w=t2-fpl-0#&a&_phm=k0%5b1ipzgv'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = ['api.meiduo.site',
+                 '127.0.0.1',
+                 '0.0.0.0'
+                 'localhost',
+                 'www.meiduo.site']
 
 # Application definition
 
@@ -42,10 +45,14 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # 注册app下的user
-    'users'
+    'users',
+    # 添加 django-cors-headers 使其可以进行 cors 跨域
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
+    # 添加 django-cors-headers 使其可以进行 cors 跨域，放在最前面，首先解决跨域问题
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -195,3 +202,15 @@ LOGGING = {
 
 # 指定本项目使用我们自定义的模型类:
 AUTH_USER_MODEL = 'users.User'
+
+
+
+# CORS跨域请求白名单设置
+CORS_ORIGIN_WHITELIST = (
+    'http://127.0.0.1:8080',
+    'http://0.0.0.0:8080',
+    'http://localhost:8080',
+    'http://www.meiduo.site:8080',
+)
+CORS_ALLOW_CREDENTIALS = True  # 允许携带cookie
+
