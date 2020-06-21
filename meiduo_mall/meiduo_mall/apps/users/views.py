@@ -204,6 +204,22 @@ class LoginView(View):
         return response
 
 
+class LogoutView(View):
 
+    def delete(self, request):
+        # 清理session
+        logout(request)
+
+        # 创建response对象
+        response = http.JsonResponse({
+            'code':0,
+            'errmsg':'ok'
+        })
+
+        # 调用对象的delete_cookie方法，清除cookie
+        response.delete_cookie('username')
+
+        # 返回响应
+        return response
 
 
