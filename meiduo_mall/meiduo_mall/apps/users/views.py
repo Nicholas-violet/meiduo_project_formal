@@ -137,11 +137,17 @@ class RegisterView(View):
         # 登录状态保持
         login(request, user)
 
-        return http.JsonResponse({
+        # 生成响应对象
+        response = http.JsonResponse({
             'code':0,
             'errmsg':'ok'
         })
 
+        # 在响应对象中深圳用户名信息，然后将有户名希尔cookie，设置时间为14
+        response.set_cookie('username', user.username, max_age= 3600 * 24 * 14)
+
+        # 返回响应结果
+        return response
 
 
 class LoginView(View):
@@ -185,11 +191,17 @@ class LoginView(View):
             # 如果设置 看，就睡设置两周为有效期，这是默认的
             request.session.set_expiry(None)
 
-        return http.JsonResponse({
+        # 生成相应对象
+        response = http.JsonResponse({
             'code':0,
             'errmsg':'ok'
         })
 
+        # 在响应对象里面设置用户信息，然后设置cookie，时间为14天
+        response.set_cookie('username', user.username, max_age= 3600 * 24 * 14)
+
+        # 返回响应结果
+        return response
 
 
 
