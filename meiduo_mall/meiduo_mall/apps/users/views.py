@@ -37,7 +37,7 @@ class MobileCountView(View):
 import json
 import re
 from django_redis import get_redis_connection
-from django.contrib.auth import login,logout
+from django.contrib.auth import login,logout,authenticate
 
 class RegisterView(View):
 
@@ -141,3 +141,53 @@ class RegisterView(View):
             'code':0,
             'errmsg':'ok'
         })
+
+
+
+class LoginView(View):
+
+    def post(self, request):
+
+        dict_login = json.loads(request.body.decode())
+
+        username = dict_login.get('username')
+        password = dict_login.get('password')
+        remembered = dict_login.get('remembered')
+
+        # 必传参数是否完整
+        if not all([username, password, remembered]):
+            return http.JsonResponse({
+                'code':400,
+                'errmsg':'缺少必传参数'
+            })
+
+        # 验证是否可以登录
+        user = authenticate(username=username,
+                            password=password)
+
+        # 判断是否可以登录user
+        # if not user:
+        if user is None:
+            return http.JsonResponse({
+                'code':400,
+                'errmsg':'账户或者密码错误'
+            })
+
+        # 状态保持
+        login(request, user)
+
+        # 是否记住用户
+        # if not remembered:
+        if remembered != True:
+            # 如果没有记住的话，就立刻失效
+            request.session.set_expiry(0)
+        else:
+            # 如果设置 看，就睡设置两周为有效期，这是默认的
+            request.session.set_expiry(None)
+
+        return http.JsonResponse({
+            'code':0,
+            'errmsg':'ok'
+        })
+
+
