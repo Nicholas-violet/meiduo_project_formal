@@ -124,3 +124,4 @@ class SMSCodeView(View):
             'code':200,
             'errmsg':'短信发送成功ok'
         })
+
