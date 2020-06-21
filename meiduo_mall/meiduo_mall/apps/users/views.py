@@ -38,7 +38,7 @@ import json
 import re
 from django_redis import get_redis_connection
 from django.contrib.auth import login,logout,authenticate
-
+from utils.views import LoginRequiredMixin
 class RegisterView(View):
 
     def post(self, request):
@@ -223,3 +223,12 @@ class LogoutView(View):
         return response
 
 
+class UserInfoView(LoginRequiredMixin, View):
+    '''用户中心'''
+    def get(self, request):
+        print('用户中心')
+        return http.JsonResponse({
+            'code':0,
+            'errmsg':'ok',
+            'info_data': {}
+        })
