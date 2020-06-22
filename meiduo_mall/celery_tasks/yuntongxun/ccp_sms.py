@@ -5,7 +5,7 @@ sys.path.insert(0, '../../../')
 
 import ssl
 
-from libs.yuntongxun.CCPRestSDK import REST
+from celery_tasks.yuntongxun.CCPRestSDK import REST
 
 ssl._create_default_https_context = ssl._create_unverified_context  # 全局取消证书验证
 

@@ -9,6 +9,7 @@ from django.views import View
 from django_redis import get_redis_connection
 from libs.captcha.captcha import captcha
 from libs.yuntongxun.ccp_sms import CCP
+from celery_tasks.sms.tasks import ccp_send_sms_code
 
 
 # 图片验证码
@@ -117,7 +118,8 @@ class SMSCodeView(View):
         # 执行请求，这一个很重要！
         pl.execute()
         # 9. 发送短信验证码
-        CCP().send_template_sms(mobile, [sms_code, 5], 1)
+        # CCP().send_template_sms(mobile, [sms_code, 5], 1)
+        ccp_send_sms_code.delay(mobile, sms_code)
 
         # 10. 响应结果
         return http.JsonResponse({
