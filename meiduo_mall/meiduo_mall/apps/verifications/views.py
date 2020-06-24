@@ -7,8 +7,8 @@ from django import http
 import random
 from django.views import View
 from django_redis import get_redis_connection
-from libs.captcha.captcha import captcha
-from libs.yuntongxun.ccp_sms import CCP
+from meiduo_mall.libs.captcha.captcha import captcha
+# from meiduo_mall.libs.yuntongxun.ccp_sms import CCP
 from celery_tasks.sms.tasks import ccp_send_sms_code
 
 

@@ -38,7 +38,7 @@ import json
 import re
 from django_redis import get_redis_connection
 from django.contrib.auth import login,logout,authenticate
-from utils.views import LoginRequiredMixin
+from meiduo_mall.utils.views import LoginRequiredMixin
 class RegisterView(View):
 
     def post(self, request):
