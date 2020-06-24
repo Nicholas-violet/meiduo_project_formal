@@ -53,6 +53,8 @@ INSTALLED_APPS = [
     'corsheaders',
     # 注册apps下的verifications，用于第三方模块使用
     'verifications',
+    # 注册QQ子应用
+    'oauth',
 ]
 
 MIDDLEWARE = [

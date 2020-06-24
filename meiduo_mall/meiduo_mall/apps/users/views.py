@@ -232,3 +232,5 @@ class UserInfoView(LoginRequiredMixin, View):
             'errmsg':'ok',
             'info_data': {}
         })
+
+
